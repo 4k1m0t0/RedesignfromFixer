@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>window</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="base">
+    <!--div class="left-block"-->
+      <div class="left"></div>
+    <!--/div-->
+    <div class="right-block">
+      <div class="right">
+        <table>
+          <tr>
+            <td id="0000"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    const td = document.getElementsByTagName('td');
+    const left = document.getElementsByClassName('left')[0];
+    for(var i of td){
+      i.addEventListener('click', colorChange);
+    }
+    left.addEventListener('mousemove', tilt, event);
+    left.addEventListener('mouseleave', tiltback);
+    // dblclickで直接遷移
+
+    function colorChange(){
+      console.log("b");
+      removeActive(this);
+      this.classList.toggle('active');
+      toggleColor();
+      var id = this.getAttribute('id');
+      if(id == '0000'){
+        left.textContent = "iine";
+      }
+    }
+
+    function toggleColor(){
+      if (document.getElementsByClassName('active').length == 0){
+        left.classList.toggle('active-left');
+      }else{
+        left.classList.toggle('active-left');
+      }
+    }
+
+    function removeActive(target){
+      for(var i of td){
+        if(i != target){
+          i.classList.remove('active');
+        }
+      }
+    }
+
+    function tilt(){
+      var rect = this.getBoundingClientRect();
+      var pointX = (event.pageX-rect.left)/rect.width;
+      var pointY = (event.pageY-rect.top)/rect.height;
+      var centerDx = (event.pageX-rect.left-(rect.width/2))/rect.width;
+      //console.log(event.pageX-rect.left);
+      //console.log(event.pageY-rect.top);
+      /*console.log(pointX, pointY);*/
+      console.log(centerDx);
+      this.setAttribute("style",
+        "transform: rotateY("+10*centerDx+"deg);"
+        /*"transform: rotateY("+((-10*pointY)+40)+"deg);"*/
+      );
+    }
+
+    function tiltback(){
+      this.setAttribute("style", "transform: rotate3d(0,1,0, 50deg);");
+    }
+  </script>
+</body>
+</html>
