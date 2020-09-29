@@ -74,10 +74,11 @@
 
     function toggleColor(){
       if (document.getElementsByClassName('active').length == 0){
-        left.classList.toggle('active-left');
+        left.classList.remove('active-left');
       }else{
-        left.classList.toggle('active-left');
+        left.classList.add('active-left');
       }
+
     }
 
     function removeActive(target){
